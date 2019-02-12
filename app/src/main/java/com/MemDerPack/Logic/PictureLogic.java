@@ -9,16 +9,26 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
+
 public class PictureLogic {
 
     // Picture element class.
     public static class Picture {
 
-        public Data Image;
+
+
+        public long id;
+        public static long id_next;
+        public String ImagePath;
         public int Category;
 
-        public Picture(Data image, int category) {
-            Image = image;
+        public Picture() {
+        }
+
+        public Picture(String image, int category) {
+            id = id_next;
+            id_next++;
+            ImagePath = image;
             Category = category;
         }
     }
@@ -57,48 +67,28 @@ public class PictureLogic {
 
     }
 
-    //Class contains id or path to picture.
-    public static class Data {
-
-
-//        private int drawableId;
-//
-//        public Data(int drawableId) {
-//            this.drawableId = drawableId;
-//        }
-//
-//        public int getImagePath() {
-//            return drawableId;
-//        }
-
-
-        //   Получваем картинку по ссылке из инета.
-        private String imagePath;
-
-        public Data(String imagePath) {
-            this.imagePath = imagePath;
-        }
-
-        public String getImagePath() {
-            return imagePath;
-        }
-    }
 
     // Methods for picture elements.
     public static class PictureMethods {
 
 
         // We take a user, picture and the fact whether we liked or not.
-        public static UserLogic.User ChangePreference(UserLogic.User user, Picture pic, boolean liked) {
+        public static UserLogic.User ChangePreference(UserLogic.User user, Picture pic, String forHowMuchLiked) {
             // Index of a category to change
             int index = pic.Category;
 
-            if (liked) {
+            if (forHowMuchLiked.equals("like")) {
                 if (user.getPreferencesList().get(index) < 15)
                     user.setSinglePreferences(index, user.getPreferencesList().get(index) + 1);
-            } else {
+            } else if (forHowMuchLiked.equals("dislike")) {
                 if (user.getPreferencesList().get(index) > 0)
                     user.setSinglePreferences(index, user.getPreferencesList().get(index) - 1);
+            } else if (forHowMuchLiked.equals("superlike")) {
+                if (user.getPreferencesList().get(index) < 13)
+                    user.setSinglePreferences(index, user.getPreferencesList().get(index) + 3);
+            } else if (forHowMuchLiked.equals("superdislike")) {
+                if (user.getPreferencesList().get(index) > 2)
+                    user.setSinglePreferences(index, user.getPreferencesList().get(index) - 3);
             }
 
             return user;
