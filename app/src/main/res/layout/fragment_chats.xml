@@ -6,9 +6,9 @@
     android:background="?attr/colorBackground"
     tools:context=".Fragments.ChatsFragment">
 
-    <android.support.v7.widget.RecyclerView
+    <com.stfalcon.chatkit.dialogs.DialogsList
+        android:id="@+id/dialogsList"
         android:layout_width="match_parent"
-        android:id="@+id/recycler_view"
         android:layout_height="match_parent"/>
 
 </RelativeLayout>

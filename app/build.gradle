@@ -22,6 +22,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    // Temporary fix until alpha10
+    packagingOptions {
+        exclude 'META-INF/proguard/androidx-annotations.pro'
+    }
 }
 
 buildscript {
@@ -103,5 +107,11 @@ dependencies {
 
     //JSON
     implementation 'com.google.code.gson:gson:2.8.5'
+
+    implementation 'com.github.stfalcon:chatkit:0.3.3'
+
+    //Utils
+    implementation 'me.relex:circleindicator:2.1.0'
+    implementation 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
 
 }
